@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
@@ -27,11 +28,13 @@ public class TeleOperated extends OpMode
     private DcMotor BR;
     private DcMotor FL;
     private DcMotor FR;
+    private CRServo Flag;
     /*
      * Code to run ONCE when the driver hits INIT
      */
     @Override
     public void init() {
+        Flag = hardwareMap.get(CRServo.class,"Flag");
         BL = hardwareMap.get(DcMotor.class,"BL");
         BR = hardwareMap.get(DcMotor.class,"BR");
         FL = hardwareMap.get(DcMotor.class,"FL");
@@ -75,7 +78,12 @@ public class TeleOperated extends OpMode
         BL.setPower(ly - lx + rx);
         FR.setPower(-ly + lx + rx);
         BR.setPower(ly + lx - rx);
-
+        boolean A=gamepad1.a;
+        if (A){
+            Flag.setPower(1);
+        }else{
+            Flag.setPower(0);
+        }
     }
 
     /*
